@@ -19,12 +19,14 @@
 
     body:before{
 width: 100%;
-  height: 45px;
+  height: 10%;
   background: #000;
   position: fixed;
   left: 0;
   top: 0;
   content: "";
+      z-index: 9999;
+      
     }
     body::after{
 width: 100%;
@@ -51,6 +53,8 @@ width: 100%;
       height: 100%;
       border: none;
       display: none; /* caché au départ */
+      position: fixed;
+      top: 29px;
     }
   </style>
 </head>
