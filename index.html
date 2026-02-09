@@ -148,7 +148,7 @@ bottom: 10%;
   background: rgba(255, 255, 255, 0.5);
 }
 
-    #figmaPreview {
+#figmaPreview {
   position: fixed;
   top: 29px;
   left: 0;
@@ -156,10 +156,11 @@ bottom: 10%;
   height: 100%;
   object-fit: cover;
   filter: blur(8px);
-  opacity: 1;
-  transition: opacity 0.6s ease; /* fondu quand elle disparaît */
-  z-index: 5; /* derrière loader et iframe */
+  opacity: 0;              /* caché au départ */
+  transition: opacity 0.6s ease;
+  z-index: 5;
 }
+
 
 
 
@@ -208,32 +209,28 @@ bottom: 10%;
 
 
   function showProto() {
-    video.style.display = 'none';        // cacher vidéo
-    skipBtn.style.display = 'none';      // cacher bouton
-    // masquer image preview progressivement
-preview.style.opacity = '0';
+  video.style.display = 'none';
+  skipBtn.style.display = 'none';
 
+  // afficher preview + loader
+  preview.style.opacity = '1';       // <<< ici on affiche l'image floutée
+  loading.style.display = 'flex';
 
-    figma.classList.add('visible', 'blurred', 'transition'); // afficher proto
-    loading.style.display = 'flex';      // afficher loader
+  // afficher iframe avec blur et micro-animation
+  figma.classList.add('visible', 'blurred', 'transition');
 
-    // micro-animation du proto
-    setTimeout(() => {
-      figma.classList.remove('transition'); // fin zoom/slide
-    }, 600);
+  // masquer image preview progressivement
+  setTimeout(() => {
+    preview.style.opacity = '0';
+    figma.classList.remove('transition'); // fin micro-animation
+  }, 600);
 
-    // cacher loader après 5s
-    setTimeout(() => {
-
-loading.classList.add('hidden'); // fondu
-setTimeout(() => {
-  loading.style.display = 'none'; // retirer du DOM après la transition
-}, 600); // 600ms = durée de transition CSS
-
-      
-      figma.classList.remove('blurred'); // enlever blur
-    }, 4000);
-  }
+  // cacher loader après 5s et enlever blur
+  setTimeout(() => {
+    loading.classList.add('hidden');
+    figma.classList.remove('blurred');
+  }, 5000);
+}
 
   // Fin normale de la vidéo
   video.addEventListener('ended', showProto);
