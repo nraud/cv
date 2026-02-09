@@ -128,6 +128,28 @@ width: 100%;
 
 
 
+
+    #skipBtn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10001; /* au-dessus du loader et vidéo */
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid white;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#skipBtn:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+
+
     
   </style>
 </head>
@@ -152,6 +174,8 @@ width: 100%;
 </div>
 
 
+  <button id="skipBtn">Passer</button>
+
 
 
 
@@ -161,28 +185,34 @@ width: 100%;
   const video = document.getElementById('video');
   const figma = document.getElementById('figmaFrame');
   const loading = document.getElementById('loading');
+  const skipBtn = document.getElementById('skipBtn');
 
-  video.addEventListener('ended', () => {
-    video.style.display = 'none';
+  function showProto() {
+    video.style.display = 'none';        // cacher vidéo
+    skipBtn.style.display = 'none';      // cacher bouton
 
-    // afficher Figma
-    figma.classList.add('visible', 'blurred', 'transition');
-
-    // afficher le loader
-    loading.style.display = 'flex';
+    figma.classList.add('visible', 'blurred', 'transition'); // afficher proto
+    loading.style.display = 'flex';      // afficher loader
 
     // micro-animation du proto
     setTimeout(() => {
-      figma.classList.remove('transition'); // fin du zoom/slide
+      figma.classList.remove('transition'); // fin zoom/slide
     }, 600);
 
-    // cacher le loader après 5s avec fondu
+    // cacher loader après 5s
     setTimeout(() => {
-      loading.classList.add('hidden'); // fade out
+      loading.classList.add('hidden');   // fade out
       figma.classList.remove('blurred'); // enlever blur
     }, 5000);
-  });
+  }
+
+  // Fin normale de la vidéo
+  video.addEventListener('ended', showProto);
+
+  // Bouton “Passer”
+  skipBtn.addEventListener('click', showProto);
 </script>
+
 
 
 
