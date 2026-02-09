@@ -120,16 +120,27 @@ width: 100%;
   const figma = document.getElementById('figmaFrame');
   const loading = document.getElementById('loading');
 
+  let loaderHidden = false;
+
+  function hideLoader() {
+    if (loaderHidden) return;
+    loaderHidden = true;
+    loading.style.display = 'none';
+  }
+
   video.addEventListener('ended', () => {
     video.style.display = 'none';
     figma.style.display = 'block';
     loading.style.display = 'flex';
+
+    // fallback sécurité (ex : 4 secondes)
+    setTimeout(hideLoader, 4000);
   });
 
-  figma.addEventListener('load', () => {
-    loading.style.display = 'none';
-  });
+  // signal navigateur (quand il arrive)
+  figma.addEventListener('load', hideLoader);
 </script>
+
 
 
 
