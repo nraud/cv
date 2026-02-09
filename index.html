@@ -120,11 +120,11 @@ width: 100%;
   const figma = document.getElementById('figmaFrame');
   const loading = document.getElementById('loading');
 
-  let loaderHidden = false;
+  let done = false;
 
   function hideLoader() {
-    if (loaderHidden) return;
-    loaderHidden = true;
+    if (done) return;
+    done = true;
     loading.style.display = 'none';
   }
 
@@ -133,13 +133,13 @@ width: 100%;
     figma.style.display = 'block';
     loading.style.display = 'flex';
 
-    // fallback sécurité (ex : 4 secondes)
-    setTimeout(hideLoader, 4000);
+    // sécurité UX : on ne bloque jamais plus de 3s
+    setTimeout(hideLoader, 3000);
   });
 
-  // signal navigateur (quand il arrive)
   figma.addEventListener('load', hideLoader);
 </script>
+
 
 
 
