@@ -70,7 +70,7 @@ width: 100%;
 #loading {
   position: fixed;
   inset: 0;
-  background: black;
+  background: rgba(0, 0, 0, 0.75);
   color: white;
   display: none;
   flex-direction: column;
@@ -79,6 +79,7 @@ width: 100%;
   z-index: 10000;
   font-family: Arial, sans-serif;
 }
+
 
 .spinner {
   width: 48px;
@@ -124,23 +125,26 @@ width: 100%;
 
 
 
-
 <script>
   const video = document.getElementById('video');
   const figma = document.getElementById('figmaFrame');
   const loading = document.getElementById('loading');
 
   video.addEventListener('ended', () => {
-    video.style.display = 'none';      // cacher la vidéo
-    figma.style.display = 'block';     // afficher Figma
-    loading.style.display = 'flex';    // afficher le loader
+    video.style.display = 'none';
 
-    // cacher le loader après 5 secondes, quoi qu'il arrive
+    figma.style.display = 'block';
+    figma.classList.add('blurred');
+
+    loading.style.display = 'flex';
+
     setTimeout(() => {
       loading.style.display = 'none';
+      figma.classList.remove('blurred');
     }, 5000);
   });
 </script>
+
 
 
 
