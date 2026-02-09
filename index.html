@@ -201,7 +201,13 @@ bottom: 10%;
 
     // cacher loader après 5s
     setTimeout(() => {
-      loading.classList.add('hidden');   // fade out
+
+loading.classList.add('hidden'); // fondu
+setTimeout(() => {
+  loading.style.display = 'none'; // retirer du DOM après la transition
+}, 600); // 600ms = durée de transition CSS
+
+      
       figma.classList.remove('blurred'); // enlever blur
     }, 7000);
   }
