@@ -114,36 +114,20 @@ width: 100%;
 </div>
 
 
+
 <script>
   const video = document.getElementById('video');
   const figma = document.getElementById('figmaFrame');
   const loading = document.getElementById('loading');
 
-  let figmaLoaded = false;
-  let minDelayPassed = false;
-
-  function tryHideLoading() {
-    if (figmaLoaded && minDelayPassed) {
-      loading.style.display = 'none';
-    }
-  }
-
   video.addEventListener('ended', () => {
     video.style.display = 'none';
     figma.style.display = 'block';
     loading.style.display = 'flex';
-
-    // délai minimum de 5 secondes
-    setTimeout(() => {
-      minDelayPassed = true;
-      tryHideLoading();
-    }, 5000);
   });
 
-  // vrai chargement de l'iframe Figma
   figma.addEventListener('load', () => {
-    figmaLoaded = true;
-    tryHideLoading();
+    loading.style.display = 'none';
   });
 </script>
 
