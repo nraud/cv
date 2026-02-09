@@ -161,6 +161,7 @@ bottom: 10%;
   transform: translateY(-50%) translateX(-50%);
   max-height: 750px;
   max-width: 1300px;
+  display:none;
 }
 
 
@@ -214,6 +215,7 @@ function showProto(isSkip = false) {
   skipBtn.style.display = 'none';
 
   // afficher preview + loader
+  preview.style.display = 'block';
   preview.style.opacity = '1';
   loading.style.display = 'flex';
 
