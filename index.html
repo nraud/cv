@@ -202,13 +202,13 @@ bottom: 10%;
 
 
 <script>
-  const video = document.getElementById('video');
-  const figma = document.getElementById('figmaFrame');
-  const loading = document.getElementById('loading');
-  const skipBtn = document.getElementById('skipBtn');
-  const preview = document.getElementById('figmaPreview');
+const video = document.getElementById('video');
+const figma = document.getElementById('figmaFrame');
+const loading = document.getElementById('loading');
+const skipBtn = document.getElementById('skipBtn');
+const preview = document.getElementById('figmaPreview');
 
-function showProto() {
+function showProto(isSkip = false) {
   video.style.display = 'none';
   skipBtn.style.display = 'none';
 
@@ -219,27 +219,30 @@ function showProto() {
   // afficher iframe avec blur et micro-animation
   figma.classList.add('visible', 'blurred', 'transition');
 
-  // micro-animation du proto (optionnelle)
   setTimeout(() => {
     figma.classList.remove('transition'); // fin micro-animation
   }, 600);
 
-  // cacher loader ET preview après 5 secondes
+  // durée du loader
+  let loaderDuration = 5000; // 5s par défaut
+
+  if (isSkip) {
+    loaderDuration += 3000; // +3s si skip
+  }
+
   setTimeout(() => {
     loading.classList.add('hidden');
-    preview.style.opacity = '0';       // fade de la preview à la fin
-    figma.classList.remove('blurred'); // iframe devient net
-  }, 5000); // durée du loader
+    preview.style.opacity = '0';       // fade de la preview
+    figma.classList.remove('blurred'); // iframe devient nette
+  }, loaderDuration);
 }
 
+// événement fin vidéo
+video.addEventListener('ended', () => showProto(false));
 
+// événement bouton “Passer”
+skipBtn.addEventListener('click', () => showProto(true));
 
-  
-  // Fin normale de la vidéo
-  video.addEventListener('ended', showProto);
-
-  // Bouton “Passer”
-  skipBtn.addEventListener('click', showProto);
 </script>
 
 
