@@ -207,31 +207,33 @@ bottom: 10%;
   const skipBtn = document.getElementById('skipBtn');
   const preview = document.getElementById('figmaPreview');
 
-
-  function showProto() {
+function showProto() {
   video.style.display = 'none';
   skipBtn.style.display = 'none';
 
   // afficher preview + loader
-  preview.style.opacity = '1';       // <<< ici on affiche l'image floutée
+  preview.style.opacity = '1';
   loading.style.display = 'flex';
 
   // afficher iframe avec blur et micro-animation
   figma.classList.add('visible', 'blurred', 'transition');
 
-  // masquer image preview progressivement
+  // micro-animation du proto (optionnelle)
   setTimeout(() => {
-    preview.style.opacity = '0';
     figma.classList.remove('transition'); // fin micro-animation
   }, 600);
 
-  // cacher loader après 5s et enlever blur
+  // cacher loader ET preview après 5 secondes
   setTimeout(() => {
     loading.classList.add('hidden');
-    figma.classList.remove('blurred');
-  }, 5000);
+    preview.style.opacity = '0';       // fade de la preview à la fin
+    figma.classList.remove('blurred'); // iframe devient net
+  }, 5000); // durée du loader
 }
 
+
+
+  
   // Fin normale de la vidéo
   video.addEventListener('ended', showProto);
 
