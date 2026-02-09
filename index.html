@@ -62,36 +62,25 @@ width: 100%;
 #loading {
   position: fixed;
   inset: 0;
-  background: black;
+  background: rgba(0,0,0,0.75);
   color: white;
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 10000;
-  font-family: Arial, sans-serif;
+  pointer-events: none;
+  animation: fadeOut 0.6s ease forwards;
+  animation-delay: 2.2s;
 }
 
-.spinner {
-  width: 48px;
-  height: 48px;
-  border: 4px solid rgba(255,255,255,0.2);
-  border-top-color: white;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 16px;
-}
-
-.loading-text {
-  font-size: 1.4rem;
-  letter-spacing: 0.05em;
-}
-
-@keyframes spin {
+@keyframes fadeOut {
   to {
-    transform: rotate(360deg);
+    opacity: 0;
+    visibility: hidden;
   }
 }
+
 
 
     
@@ -120,25 +109,13 @@ width: 100%;
   const figma = document.getElementById('figmaFrame');
   const loading = document.getElementById('loading');
 
-  let done = false;
-
-  function hideLoader() {
-    if (done) return;
-    done = true;
-    loading.style.display = 'none';
-  }
-
   video.addEventListener('ended', () => {
     video.style.display = 'none';
     figma.style.display = 'block';
     loading.style.display = 'flex';
-
-    // sécurité UX : on ne bloque jamais plus de 3s
-    setTimeout(hideLoader, 3000);
   });
-
-  figma.addEventListener('load', hideLoader);
 </script>
+
 
 
 
