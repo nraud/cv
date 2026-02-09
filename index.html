@@ -237,6 +237,7 @@ function showProto(isSkip = false) {
   setTimeout(() => {
     loading.classList.add('hidden');
     preview.style.opacity = '0';       // fade de la preview
+    preview.style.display = 'none';       // fade de la preview
     figma.classList.remove('blurred'); // iframe devient nette
     figma.style.opacity = '1';        // iframe devient complètement opaque
   }, loaderDuration);
